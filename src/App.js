@@ -1,10 +1,11 @@
 import './App.css';
 
 // 사용자 정의 태그(반드시 대문자로 시작해야 한다.)
-function Header() {
+function Header(props) {
+  console.log('props', props.title);
   return (
     <header>
-      <h1><a href="/">React</a></h1>
+      <h1><a href="/">{props.title}</a></h1>
     </header>
   )
 }
@@ -21,11 +22,11 @@ function Nav() {
   )
 }
 
-function Article() {
+function Article(props) {
   return (
     <article>
-      <h2>Welcome</h2>
-      Hello, WEB
+      <h2>{props.title}</h2>
+      {props.body}
     </article>
   )
 }
@@ -33,9 +34,10 @@ function Article() {
 function App() {
   return (
     <div>
-      <Header></Header>
+      <Header title="REACT"></Header>
       <Nav></Nav>
-      <Article></Article>
+      <Article title="Welcome" body="Hello, Web"></Article>
+      <Article title="Hi" body="Hello, React"></Article>
     </div>
   );
 }
