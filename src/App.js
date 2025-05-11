@@ -10,13 +10,16 @@ function Header(props) {
   )
 }
 
-function Nav() {
+function Nav(props) {
+  const lis= []
+  for(let i=0; i<props.topics.length; i++){
+    let t = props.topics[i];
+    lis.push(<li key={t.id}><a href={'/read/'+t.id}>{t.title}</a></li>);
+  }
   return (
     <nav>
       <ol>
-        <li><a href="/read/1">HTML</a></li>
-        <li><a href="/read/2">CSS</a></li>
-        <li><a href="/read/3">JavaScript</a></li>
+        {lis}
       </ol>
     </nav>
   )
@@ -32,12 +35,19 @@ function Article(props) {
 }
 
 function App() {
+  // 내비게이션 목록이 있는 정보를 자바스크립트 자료 구조에 맞게 변경
+  // 함수 안에선 바뀌지 않기에 const 로 선언
+  // 값이 여러 개이기에 배열로 선언 []
+  const topics = [
+    {id: 1, title: 'HTML', body: 'HTML is HyperText Markup Language'},
+    {id: 2, title: 'CSS', body: 'CSS is Cascading Style Sheets'},
+    {id: 3, title: 'JavaScript', body: 'JavaScript is Programming Language'},
+  ]
   return (
     <div>
-      <Header title="REACT"></Header>
-      <Nav></Nav>
+      <Header title="WEB"></Header>
+      <Nav topics={topics}></Nav>
       <Article title="Welcome" body="Hello, Web"></Article>
-      <Article title="Hi" body="Hello, React"></Article>
     </div>
   );
 }
