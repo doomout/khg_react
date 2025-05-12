@@ -10,18 +10,27 @@
  - 터미널에서 리액트 실행 종료: 컨트롤 + c  
 2. 리액트 문법(공부할 때마다 업데이트)
  - 사용자 정의 태그를 만들 때는 반드시 대문자로 시작해야 한다.
- - {}로 감싸면 표현식이 된다. (예)<h2>{props.title}</h2>
  - 컴포넌트에 이벤트 추가
  ```jsx
- function Header(props) {
-  console.log('props', props.title);
-  return (
-    <header>
-      <h1><a href="/" onClick={(event)=>{ //onClick 이벤트 추가
+function Nav(props) {
+  const lis= []
+  for(let i=0; i<props.topics.length; i++){
+    let t = props.topics[i];
+    lis.push(<li key={t.id}>
+      <a id={t.id} href={'/read/'+t.id} onClick={(event)=>{
+        // <a> 태그에 있는 id 값을 가져와서 <Nav> 컴포넌트에 있는 onChangeMode() 함수를 호출한다.
         event.preventDefault(); // a 태그의 기본 동작을 막는다.
-        props.onChangeMode(); // <Header> 컴포넌트에 있는 onChangeMode() 함수를 호출한다.
-      }}>{props.title}</a></h1>
-    </header>
+        // event.target.id 는 <a> 태그의 id 값을 가져온다.
+        props.onChangeMode(event.target.id); 
+      }}>{t.title}</a>
+      </li>);
+  }
+  return (
+    <nav>
+      <ol>
+        {lis}
+      </ol>
+    </nav>
   )
 }
  ```
