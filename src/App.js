@@ -17,7 +17,13 @@ function Nav(props) {
   const lis= []
   for(let i=0; i<props.topics.length; i++){
     let t = props.topics[i];
-    lis.push(<li key={t.id}><a href={'/read/'+t.id}>{t.title}</a></li>);
+    lis.push(<li key={t.id}>
+      <a id={t.id} href={'/read/'+t.id} onClick={(event)=>{
+        event.preventDefault(); // a 태그의 기본 동작을 막는다.
+        props.onChangeMode(event.target.id); // <a> 태그에 있는 id 값을 가져와서 <Nav> 컴포넌트에 있는 onChangeMode() 함수를 호출한다.
+        // event.target.id 는 <a> 태그의 id 값을 가져온다.
+      }}>{t.title}</a>
+      </li>);
   }
   return (
     <nav>
@@ -48,10 +54,12 @@ function App() {
   ]
   return (
     <div>
-      <Header title="WEB" onChangeMode={function(){
+      <Header title="WEB" onChangeMode={()=>{
         alert('Header');
       }}></Header>
-      <Nav topics={topics}></Nav>
+      <Nav topics={topics} onChangeMode={(id)=>{
+        alert(id);
+      }}></Nav>
       <Article title="Welcome" body="Hello, Web"></Article>
     </div>
   );
