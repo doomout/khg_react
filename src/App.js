@@ -5,7 +5,10 @@ function Header(props) {
   console.log('props', props.title);
   return (
     <header>
-      <h1><a href="/">{props.title}</a></h1>
+      <h1><a href="/" onClick={function(event){
+        event.preventDefault(); // a 태그의 기본 동작을 막는다.
+        props.onChangeMode(); // <Header> 컴포넌트에 있는 onChangeMode() 함수를 호출한다.
+      }}>{props.title}</a></h1>
     </header>
   )
 }
@@ -45,7 +48,9 @@ function App() {
   ]
   return (
     <div>
-      <Header title="WEB"></Header>
+      <Header title="WEB" onChangeMode={function(){
+        alert('Header');
+      }}></Header>
       <Nav topics={topics}></Nav>
       <Article title="Welcome" body="Hello, Web"></Article>
     </div>
