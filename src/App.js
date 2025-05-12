@@ -5,7 +5,7 @@ function Header(props) {
   console.log('props', props.title);
   return (
     <header>
-      <h1><a href="/" onClick={function(event){
+      <h1><a href="/" onClick={(event)=>{
         event.preventDefault(); // a 태그의 기본 동작을 막는다.
         props.onChangeMode(); // <Header> 컴포넌트에 있는 onChangeMode() 함수를 호출한다.
       }}>{props.title}</a></h1>
