@@ -1,4 +1,5 @@
 import './App.css';
+import {useState} from 'react';
 
 // 사용자 정의 태그(반드시 대문자로 시작해야 한다.)
 function Header(props) {
@@ -44,7 +45,9 @@ function Article(props) {
 }
 
 function App() {
-  const mode = 'WELCOME'; // 현재 모드
+  // useState() 훅을 사용하여 상태를 관리한다.
+  const [mode, setMode] = useState('WELCOME'); 
+  
   // 내비게이션 목록이 있는 정보를 자바스크립트 자료 구조에 맞게 변경
   // 함수 안에선 바뀌지 않기에 const 로 선언
   // 값이 여러 개이기에 배열로 선언 []
@@ -62,10 +65,12 @@ function App() {
   return (
     <div>
       <Header title="WEB" onChangeMode={()=>{
-        alert('Header');
+        //mode = 'WELCOME'; // mode 값을 'WELCOME'으로 변경
+        setMode('WELCOME'); // mode 값을 'WELCOME'으로 변경
       }}></Header>
       <Nav topics={topics} onChangeMode={(id)=>{
-        alert(id);
+        //mode = 'READ';
+        setMode('READ'); // mode 값을 'READ'로 변경
       }}></Nav>
       {content}
     </div>
