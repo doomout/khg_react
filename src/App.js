@@ -44,6 +44,7 @@ function Article(props) {
 }
 
 function App() {
+  const mode = 'WELCOME'; // 현재 모드
   // 내비게이션 목록이 있는 정보를 자바스크립트 자료 구조에 맞게 변경
   // 함수 안에선 바뀌지 않기에 const 로 선언
   // 값이 여러 개이기에 배열로 선언 []
@@ -52,6 +53,12 @@ function App() {
     {id: 2, title: 'CSS', body: 'CSS is Cascading Style Sheets'},
     {id: 3, title: 'JavaScript', body: 'JavaScript is Programming Language'},
   ]
+  let content = null;
+  if(mode === 'WELCOME'){
+    content = <Article title="Welcome" body="Hello, Web"></Article>
+  }else if(mode === 'READ'){
+    content = <Article title="Welcome" body="Hello, Read"></Article>
+  }
   return (
     <div>
       <Header title="WEB" onChangeMode={()=>{
@@ -60,7 +67,7 @@ function App() {
       <Nav topics={topics} onChangeMode={(id)=>{
         alert(id);
       }}></Nav>
-      <Article title="Welcome" body="Hello, Web"></Article>
+      {content}
     </div>
   );
 }
