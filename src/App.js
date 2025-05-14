@@ -47,6 +47,7 @@ function Article(props) {
 function App() {
   // useState() 훅을 사용하여 상태를 관리한다.
   const [mode, setMode] = useState('WELCOME'); 
+  const [id, setId] = useState(null); // id 상태를 추가한다.
   
   // 내비게이션 목록이 있는 정보를 자바스크립트 자료 구조에 맞게 변경
   // 함수 안에선 바뀌지 않기에 const 로 선언
@@ -60,7 +61,15 @@ function App() {
   if(mode === 'WELCOME'){
     content = <Article title="Welcome" body="Hello, Web"></Article>
   }else if(mode === 'READ'){
-    content = <Article title="Welcome" body="Hello, Read"></Article>
+    let title, body = null;
+    for(let i=0; i<topics.length; i++){
+      console.log(topics[i].id, id);
+      if(topics[i].id === Number(id)){ // id 값이 같으면
+        title = topics[i].title; // 제목을 가져온다.
+        body = topics[i].body; // 본문을 가져온다.
+      }
+    }
+    content = <Article title={title} body={body}></Article>
   }
   return (
     <div>
@@ -71,6 +80,7 @@ function App() {
       <Nav topics={topics} onChangeMode={(id)=>{
         //mode = 'READ';
         setMode('READ'); // mode 값을 'READ'로 변경
+        setId(id); // id 값을 변경
       }}></Nav>
       {content}
     </div>
