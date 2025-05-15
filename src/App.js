@@ -44,11 +44,16 @@ function Article(props) {
   )
 }
 
-function Create() {
+function Create(props) {
   return (
     <article>
       <h2>Create</h2>
-      <form>
+      <form onSubmit={event=>{
+        event.preventDefault(); // a 태그의 기본 동작을 막는다.
+        const title = event.target.title.value; // title 값을 가져온다.
+        const body = event.target.body.value; // body 값을 가져온다.
+        props.onCreate(title, body); // <Create> 컴포넌트에 있는 onCreate() 함수를 호출한다.
+      }}>
         <p><input type="text" name="title" placeholder="title"/></p>
         <p><textarea name='body' placeholder="body"></textarea></p>
         <p><input type="submit" value="Create"></input></p>
@@ -61,15 +66,13 @@ function App() {
   // useState() 훅을 사용하여 상태를 관리한다.
   const [mode, setMode] = useState('WELCOME'); 
   const [id, setId] = useState(null); // id 상태를 추가한다.
-  
-  // 내비게이션 목록이 있는 정보를 자바스크립트 자료 구조에 맞게 변경
-  // 함수 안에선 바뀌지 않기에 const 로 선언
-  // 값이 여러 개이기에 배열로 선언 []
-  const topics = [
+  const [nextId, setNextId] = useState(4); // 다음 id 값을 관리하기 위한 상태를 추가한다.
+  const [topics, setTopics] = useState([
     {id: 1, title: 'HTML', body: 'HTML is HyperText Markup Language'},
     {id: 2, title: 'CSS', body: 'CSS is Cascading Style Sheets'},
     {id: 3, title: 'JavaScript', body: 'JavaScript is Programming Language'},
-  ]
+  ]);
+
   let content = null;
   if(mode === 'WELCOME'){
     content = <Article title="Welcome" body="Hello, Web"></Article>
@@ -84,7 +87,12 @@ function App() {
     }
     content = <Article title={title} body={body}></Article>
   } else if(mode === 'CREATE'){
-    content = <Create></Create>
+    content = <Create onCreate={(_title, _body)=>{
+      const newTopic ={id:nextId, title:_title, body:_body}; 
+      const newTopics = [...topics]; // topics 배열을 복사한다.
+      newTopics.push(newTopic); // 새로운 주제를 추가한다.
+      setTopics(newTopics); // topics 배열을 업데이트한다.
+    }}></Create>
   }
   return (
     <div>
@@ -93,7 +101,6 @@ function App() {
         setMode('WELCOME'); // mode 값을 'WELCOME'으로 변경
       }}></Header>
       <Nav topics={topics} onChangeMode={(id)=>{
-        //mode = 'READ';
         setMode('READ'); // mode 값을 'READ'로 변경
         setId(id); // id 값을 변경
       }}></Nav>
@@ -101,7 +108,7 @@ function App() {
       <a href="/create" onClick={(event)=>{
         event.preventDefault(); // a 태그의 기본 동작을 막는다.
         setMode('CREATE'); // mode 값을 'CREATE'로 변경
-      }}>CREATE</a>
+      }}>Create</a>
     </div>
   );
 }
