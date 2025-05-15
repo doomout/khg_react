@@ -44,6 +44,18 @@ function Article(props) {
   )
 }
 
+function Create() {
+  return (
+    <article>
+      <h2>Create</h2>
+      <form>
+        <p><input type="text" name="title" placeholder="title"/></p>
+        <p><textarea name='body' placeholder="body"></textarea></p>
+      </form>
+    </article>
+  )
+}
+
 function App() {
   // useState() 훅을 사용하여 상태를 관리한다.
   const [mode, setMode] = useState('WELCOME'); 
@@ -70,6 +82,8 @@ function App() {
       }
     }
     content = <Article title={title} body={body}></Article>
+  } else if(mode === 'CREATE'){
+    content = <Create></Create>
   }
   return (
     <div>
@@ -83,6 +97,10 @@ function App() {
         setId(id); // id 값을 변경
       }}></Nav>
       {content}
+      <a href="/create" onClick={(event)=>{
+        event.preventDefault(); // a 태그의 기본 동작을 막는다.
+        setMode('CREATE'); // mode 값을 'CREATE'로 변경
+      }}>CREATE</a>
     </div>
   );
 }
