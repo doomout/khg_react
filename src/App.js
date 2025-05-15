@@ -21,7 +21,7 @@ function Nav(props) {
     lis.push(<li key={t.id}>
       <a id={t.id} href={'/read/'+t.id} onClick={(event)=>{
         event.preventDefault(); // a 태그의 기본 동작을 막는다.
-        props.onChangeMode(event.target.id); // <a> 태그에 있는 id 값을 가져와서 <Nav> 컴포넌트에 있는 onChangeMode() 함수를 호출한다.
+        props.onChangeMode(Number(event.target.id)); // <a> 태그에 있는 id 값을 가져와서 <Nav> 컴포넌트에 있는 onChangeMode() 함수를 호출한다.
         // event.target.id 는 <a> 태그의 id 값을 가져온다.
       }}>{t.title}</a>
       </li>);
