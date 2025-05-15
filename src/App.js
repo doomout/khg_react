@@ -92,12 +92,14 @@ function App() {
       const newTopics = [...topics]; // topics 배열을 복사한다.
       newTopics.push(newTopic); // 새로운 주제를 추가한다.
       setTopics(newTopics); // topics 배열을 업데이트한다.
+      setMode('READ'); // mode 값을 'READ'로 변경
+      setId(nextId); // id 값을 nextId로 변경
+      setNextId(nextId + 1); // nextId 값을 1 증가시킨다.
     }}></Create>
   }
   return (
     <div>
       <Header title="WEB" onChangeMode={()=>{
-        //mode = 'WELCOME'; // mode 값을 'WELCOME'으로 변경
         setMode('WELCOME'); // mode 값을 'WELCOME'으로 변경
       }}></Header>
       <Nav topics={topics} onChangeMode={(id)=>{
