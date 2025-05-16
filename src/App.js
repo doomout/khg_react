@@ -74,6 +74,8 @@ function App() {
   ]);
 
   let content = null;
+  let contextControl = null;
+
   if(mode === 'WELCOME'){
     content = <Article title="Welcome" body="Hello, Web"></Article>
   }else if(mode === 'READ'){
@@ -86,6 +88,7 @@ function App() {
       }
     }
     content = <Article title={title} body={body}></Article>
+    contextControl = <li><a href="/update">Update</a></li>
   } else if(mode === 'CREATE'){
     content = <Create onCreate={(_title, _body)=>{
       const newTopic ={id:nextId, title:_title, body:_body}; 
@@ -107,10 +110,13 @@ function App() {
         setId(id); // id 값을 변경
       }}></Nav>
       {content}
-      <a href="/create" onClick={(event)=>{
-        event.preventDefault(); // a 태그의 기본 동작을 막는다.
-        setMode('CREATE'); // mode 값을 'CREATE'로 변경
-      }}>Create</a>
+      <ul>
+        <li><a href="/create" onClick={(event)=>{
+          event.preventDefault(); // a 태그의 기본 동작을 막는다.
+          setMode('CREATE'); // mode 값을 'CREATE'로 변경
+        }}>Create</a></li>
+        {contextControl}
+      </ul>
     </div>
   );
 }
