@@ -62,6 +62,24 @@ function Create(props) {
   )
 }
 
+function Update() {
+  return (
+    <article>
+      <h2>Create</h2>
+      <form onSubmit={event=>{
+        event.preventDefault(); // a 태그의 기본 동작을 막는다.
+        const title = event.target.title.value; // title 값을 가져온다.
+        const body = event.target.body.value; // body 값을 가져온다.
+        props.onCreate(title, body); // <Create> 컴포넌트에 있는 onCreate() 함수를 호출한다.
+      }}>
+        <p><input type="text" name="title" placeholder="title"/></p>
+        <p><textarea name='body' placeholder="body"></textarea></p>
+        <p><input type="submit" value="Create"></input></p>
+      </form>
+    </article>
+  )
+}
+
 function App() {
   // useState() 훅을 사용하여 상태를 관리한다.
   const [mode, setMode] = useState('WELCOME'); 
@@ -88,7 +106,10 @@ function App() {
       }
     }
     content = <Article title={title} body={body}></Article>
-    contextControl = <li><a href="/update">Update</a></li>
+    contextControl = <li><a href={'/update/'+id} onClick={event=>{
+      event.preventDefault(); // a 태그의 기본 동작을 막는다.
+      setMode('UPDATE'); // mode 값을 'UPDATE'로 변경
+    }}>Update</a></li>
   } else if(mode === 'CREATE'){
     content = <Create onCreate={(_title, _body)=>{
       const newTopic ={id:nextId, title:_title, body:_body}; 
@@ -99,6 +120,8 @@ function App() {
       setId(nextId); // id 값을 nextId로 변경
       setNextId(nextId + 1); // nextId 값을 1 증가시킨다.
     }}></Create>
+  } else if(mode === 'UPDATE'){
+    content = <Update></Update>
   }
   return (
     <div>
