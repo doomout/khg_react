@@ -144,6 +144,7 @@ function App() {
         }
       }
       setTopics(newTopic); // topics 배열을 업데이트한다.
+      setMode('READ'); // mode 값을 'READ'로 변경 하면 상세 페이지로 이동한다.
     }}></Update>
   }
   return (
