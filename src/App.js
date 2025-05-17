@@ -63,6 +63,8 @@ function Create(props) {
 }
 
 function Update(props) {
+  const [title, setTitle] = useState(props.title); // title 상태를 추가한다.
+  const [body, setBody] = useState(props.body); // body 상태를 추가한다.
   return (
     <article>
       <h2>Update</h2>
@@ -72,8 +74,12 @@ function Update(props) {
         const body = event.target.body.value; // body 값을 가져온다.
         props.onUpdate(title, body); // <Update> 컴포넌트에 있는 onUpdate() 함수를 호출한다.
       }}>
-        <p><input type="text" name="title" placeholder="title" value={props.title}/></p>
-        <p><textarea name='body' placeholder="body" value={props.body}></textarea></p>
+        <p><input type="text" name="title" placeholder="title" value={title} onChange={event=>{
+          setTitle(event.target.value); // title 상태를 업데이트한다.
+        }}/></p>
+        <p><textarea name='body' placeholder="body" value={body} onChange={event=>{
+          setBody(event.target.value); // body 상태를 업데이트한다.
+        }}></textarea></p>
         <p><input type="submit" value="Update"></input></p>
       </form>
     </article>
@@ -128,7 +134,16 @@ function App() {
       }
     }
     content = <Update title={title} body={body} onUpdate={(title, body)=>{
-
+      console.log(title, body);
+      const newTopic = [...topics]; // topics 배열을 복사한다.
+      const updatedTopic = {id:id, title:title, body:body}; // 업데이트된 주제를 만든다.
+      for(let i=0; i<newTopic.length; i++){
+        if(newTopic[i].id === id){ // id 값이 같으면
+          newTopic[i] = updatedTopic; // 업데이트된 주제로 변경한다.
+          break; // 반복문을 종료한다.
+        }
+      }
+      setTopics(newTopic); // topics 배열을 업데이트한다.
     }}></Update>
   }
   return (
