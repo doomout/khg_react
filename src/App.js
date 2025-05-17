@@ -62,19 +62,19 @@ function Create(props) {
   )
 }
 
-function Update() {
+function Update(props) {
   return (
     <article>
-      <h2>Create</h2>
+      <h2>Update</h2>
       <form onSubmit={event=>{
         event.preventDefault(); // a 태그의 기본 동작을 막는다.
         const title = event.target.title.value; // title 값을 가져온다.
         const body = event.target.body.value; // body 값을 가져온다.
-        props.onCreate(title, body); // <Create> 컴포넌트에 있는 onCreate() 함수를 호출한다.
+        props.onUpdate(title, body); // <Update> 컴포넌트에 있는 onUpdate() 함수를 호출한다.
       }}>
-        <p><input type="text" name="title" placeholder="title"/></p>
-        <p><textarea name='body' placeholder="body"></textarea></p>
-        <p><input type="submit" value="Create"></input></p>
+        <p><input type="text" name="title" placeholder="title" value={props.title}/></p>
+        <p><textarea name='body' placeholder="body" value={props.body}></textarea></p>
+        <p><input type="submit" value="Update"></input></p>
       </form>
     </article>
   )
@@ -99,7 +99,6 @@ function App() {
   }else if(mode === 'READ'){
     let title, body = null;
     for(let i=0; i<topics.length; i++){
-      console.log(topics[i].id, id);
       if(topics[i].id === Number(id)){ // id 값이 같으면
         title = topics[i].title; // 제목을 가져온다.
         body = topics[i].body; // 본문을 가져온다.
@@ -121,7 +120,16 @@ function App() {
       setNextId(nextId + 1); // nextId 값을 1 증가시킨다.
     }}></Create>
   } else if(mode === 'UPDATE'){
-    content = <Update></Update>
+    let title, body = null;
+    for(let i=0; i<topics.length; i++){
+      if(topics[i].id === Number(id)){ // id 값이 같으면
+        title = topics[i].title; // 제목을 가져온다.
+        body = topics[i].body; // 본문을 가져온다.
+      }
+    }
+    content = <Update title={title} body={body} onUpdate={(title, body)=>{
+
+    }}></Update>
   }
   return (
     <div>
