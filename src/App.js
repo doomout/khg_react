@@ -130,7 +130,14 @@ function App() {
       </li>
       <li>
         <input type="button" value="Delete" onClick={()=>{
-          
+          const newTopics = [] // 빈 비열로 초기화 한다.
+          // topics 배열을 순회하면서 id 값이 같지 않은 것만 새로운 배열에 추가한다.
+          for(let i=0; i<topics.length; i++){
+            if(topics[i].id !== id){ // id 값이 같지 않으면
+              newTopics.push(topics[i]); // 새로운 배열에 추가한다.
+            }
+          }
+          setTopics(newTopics); // topics 배열을 업데이트한다.
         }}/>
       </li>
     </>
