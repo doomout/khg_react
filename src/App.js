@@ -138,6 +138,7 @@ function App() {
             }
           }
           setTopics(newTopics); // topics 배열을 업데이트한다.
+          setMode('WELCOME'); // 삭제 후 mode 값을 'WELCOME'으로 변경하여 첫화면으로 이동
         }}/>
       </li>
     </>
