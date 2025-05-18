@@ -1,5 +1,5 @@
 ## 리액트 프로그래밍
-1. 설치 환경, 실행 명령어
+### 설치 환경, 실행 명령어
  - react: 19.1.0
  - react-dom: 19.1.0
  - node: 22.15.0
@@ -8,57 +8,94 @@
  - 빌드: npm run build
  - 정적 서버 실행: npx serve -s build
  - 터미널에서 리액트 실행 종료: 컨트롤 + c  
-2. 리액트 문법(공부할 때마다 업데이트)
- - 사용자 정의 태그를 만들 때는 반드시 대문자로 시작해야 한다.
- - 컴포넌트에 이벤트 추가
+ # React 기초 학습 요약 (CRUD 구현)
 
-📌 React의 state란?  
-state는 컴포넌트의 동적인 데이터(변하는 값)를 저장하고 관리하는 객체입니다.  
-사용자 입력, 네트워크 응답 등으로 인해 UI가 바뀌어야 할 때 state를 사용합니다.  
+이 프로젝트는 React의 기본 개념을 학습하고, CRUD(Create, Read, Update, Delete) 기능을 구현한 코드입니다.   
+이 문서에서는 코드의 주요 구성 요소와 흐름을 설명합니다.
 
-✅ 특징  
-컴포넌트 내부에서 관리되는 데이터  
-state가 변경되면 해당 컴포넌트는 자동으로 리렌더링됨  
-함수형 컴포넌트에선 useState() 훅으로 사용
+## 1. 주요 개념 정리
 
-✅ 기본 사용 예시 (함수형 컴포넌트)
+### 상태 관리 (`useState`)
+
+* 컴포넌트의 동작 상태(mode, id, topics 등)를 저장 및 변경할 수 있도록 하는 React 훅.
+
+### 컴포넌트 분리
+
+* `Header`: 제목 클릭 시 WELCOME 화면으로 이동.
+* `Nav`: 게시글 리스트를 보여주고 클릭 시 READ 모드로 전환.
+* `Article`: 내용 출력.
+* `Create`: 게시글 생성 폼.
+* `Update`: 게시글 수정 폼.
+
+---
+
+## 2. 주요 기능 설명
+
+### WELCOME
+
+* 기본 초기 화면으로, 단순 인사 메시지 출력.
+
+### READ
+
+* 선택된 게시글의 상세 내용을 보여줌.
+* `Update`, `Delete` 기능을 함께 제공.
+
+### CREATE
+
+* 제목과 본문 입력 폼을 제공하고, 새 게시글 추가.
+* 추가 후 READ 모드로 전환.
+
+### UPDATE
+
+* 기존 게시글의 제목과 본문을 수정.
+* 수정 후 READ 모드로 전환.
+
+---
+
+## 3. 주요 코드 설명
+
+### 상태 선언
+
 ```jsx
-import { useState } from 'react';
-
-function Counter() {
-  const [count, setCount] = useState(0); // count는 현재 상태값, setCount는 상태 변경 함수
-
-  return (
-    <div>
-      <p>현재 카운트: {count}</p>
-      <button onClick={() => setCount(count + 1)}>+1</button>
-    </div>
-  );
-}
+const [mode, setMode] = useState('WELCOME');
+const [id, setId] = useState(null);
+const [nextId, setNextId] = useState(4);
+const [topics, setTopics] = useState([...]);
 ```
-🔄 props vs state 비교 정리
-| 구분       | `props` (속성)                  | `state` (상태)                         |
-| -------- | ----------------------------- | ------------------------------------ |
-| 정의       | 부모 컴포넌트가 자식 컴포넌트에 전달하는 데이터    | 컴포넌트 내부에서 관리되는 동적인 데이터               |
-| 수정 가능 여부 | **읽기 전용(Read-only)**          | **수정 가능 (setState 또는 useState로 변경)** |
-| 사용 목적    | 컴포넌트 간 데이터 전달                 | 컴포넌트 내부의 상태 관리                       |
-| 소유자      | 부모 컴포넌트                       | 자기 자신(해당 컴포넌트)                       |
-| 리렌더링 여부  | props 변경 시 자식 컴포넌트는 **리렌더링**됨 | state 변경 시 **자기 자신이 리렌더링**됨          |
+
+### 게시글 추가 (CREATE)
+
 ```jsx
-function Hello(props) {
-  return <h1>안녕하세요, {props.name}!</h1>;
-}
+const newTopic = {id: nextId, title: _title, body: _body};
+const newTopics = [...topics];
+newTopics.push(newTopic);
+setTopics(newTopics);
+setId(nextId);
+setNextId(nextId + 1);
+```
 
-function App() {
-  const [name, setName] = useState('홍길동');
+### 게시글 수정 (UPDATE)
 
-  return (
-    <div>
-      <Hello name={name} />  {/* props로 전달 */}
-      <button onClick={() => setName('김철수')}>이름 바꾸기</button> {/* state로 관리 */}
-    </div>
-  );
-}
-```  
-- props는 부모 → 자식으로 값을 전달할 때 사용하며 외부에서 주어지는 값  
-- state는 컴포넌트 내부에서 관리하는 값으로 자기 자신이 변화시키는 값
+```jsx
+const newTopic = [...topics];
+const updatedTopic = {id, title, body};
+newTopic[i] = updatedTopic;
+setTopics(newTopic);
+```
+
+### 게시글 삭제 (DELETE)
+
+```jsx
+const newTopics = topics.filter(topic => topic.id !== id);
+setTopics(newTopics);
+```
+
+---
+
+## 4. 추가 참고
+
+* JSX 내부 주석: `{/* 주석 */}` 형태 사용.
+* JSX 외부 (JS 코드): 일반 `//`, `/* */` 주석 사용 가능.
+
+---
+
