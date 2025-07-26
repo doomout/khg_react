@@ -13,7 +13,8 @@ function Nav(props) {
   const lis = []
   for(let i=0; i<props.topics.length; i++) {
     let t = props.topics[i];
-    lis.push(<li>{t.title}</li>);
+    // li 태그는 key 값이 있어야 하고 고유해야 하기에 id를 설정
+    lis.push(<li key={t.id}><a href={'/read/'+t.id}>{t.title}</a></li>);
   }
   return (
     <nav>
