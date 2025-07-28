@@ -4,7 +4,10 @@ function Header(props) {
   console.log('props', props.title)
   return (
     <header>
-      <h1><a href="/">{props.title}</a></h1>
+      <h1><a href="/" onClick={(event)=>{
+        event.preventDefault(); // event 기본 동장 막음
+        props.onChangMode(); // onChangMode() 함수 호출
+      }}>{props.title}</a></h1>
     </header>
   )
 }
@@ -42,7 +45,9 @@ function App() {
   ]
   return (
     <div>
-      <Header title="WEB"></Header>
+      <Header title="WEB" onChangMode={()=>{
+        alert('Header')
+      }}></Header>
       <Nav topics={topics}></Nav>
       <Article title="Welcome" body="Hello, WEB"></Article>
     </div>
