@@ -1,5 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
+import {useState} from 'react';
 function Header(props) {
   console.log('props', props.title)
   return (
@@ -42,8 +43,9 @@ function Article(props) {
   )
 }
 function App() {
-  // 여러 mode에 따라 다르게 바뀌기 위한 변수
-  const mode = 'READ';
+  // [인덱스의 값을 읽기, state의 값을 변경하기]
+  const [mode, setMode] = useState('WELCOME');
+  console.log('mode', mode);
   // 네비게이션의 목옥을 담을 topice 배열 변수(제목, 본문, 각자의 ID 값)
   const topics = [
     {id:1, title:'html', body:'html is ...'},
@@ -59,10 +61,10 @@ function App() {
   return (
     <div>
       <Header title="WEB" onChangMode={()=>{
-        alert('Header')
+        setMode('WELCOME'); // mode의 값을 바꿀 때는 setMode를 사용해야 한다
       }}></Header>
       <Nav topics={topics} onChangMode={(id)=>{
-        alert(id);
+        setMode('READ'); // mode의 값을 바꿀 때는 setMode를 사용해야 한다
       }}></Nav>
       {content} 
     </div>
