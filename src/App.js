@@ -17,7 +17,12 @@ function Nav(props) {
   for(let i=0; i<props.topics.length; i++) {
     let t = props.topics[i];
     // li 태그는 key 값이 있어야 하고 고유해야 하기에 id를 설정
-    lis.push(<li key={t.id}><a href={'/read/'+t.id}>{t.title}</a></li>);
+    lis.push(<li key={t.id}>
+      <a id={t.id} href={'/read/'+t.id} onClick={event=>{
+        event.preventDefault();
+        props.onChangMode(event.target.id);
+      }}>{t.title}</a>
+    </li>);
   }
   return (
     <nav>
@@ -48,7 +53,9 @@ function App() {
       <Header title="WEB" onChangMode={()=>{
         alert('Header')
       }}></Header>
-      <Nav topics={topics}></Nav>
+      <Nav topics={topics} onChangMode={(id)=>{
+        alert(id);
+      }}></Nav>
       <Article title="Welcome" body="Hello, WEB"></Article>
     </div>
   );
