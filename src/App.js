@@ -42,12 +42,20 @@ function Article(props) {
   )
 }
 function App() {
+  // 여러 mode에 따라 다르게 바뀌기 위한 변수
+  const mode = 'READ';
   // 네비게이션의 목옥을 담을 topice 배열 변수(제목, 본문, 각자의 ID 값)
   const topics = [
     {id:1, title:'html', body:'html is ...'},
     {id:2, title:'css', body:'css is ...'},
     {id:3, title:'javascript', body:'javascript is ...'}
   ]
+  let content = null;
+  if(mode === 'WELCOME') {
+    content = <Article title="Welcome" body="Hello, WEB"></Article>
+  } else if(mode === 'READ') {
+    content = <Article title="Read" body="Hello, Read"></Article>
+  }
   return (
     <div>
       <Header title="WEB" onChangMode={()=>{
@@ -56,7 +64,7 @@ function App() {
       <Nav topics={topics} onChangMode={(id)=>{
         alert(id);
       }}></Nav>
-      <Article title="Welcome" body="Hello, WEB"></Article>
+      {content} 
     </div>
   );
 }
