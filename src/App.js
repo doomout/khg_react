@@ -1,6 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
-import {useState} from 'react';
+import {use, useState} from 'react';
 function Header(props) {
   console.log('props', props.title)
   return (
@@ -44,11 +44,18 @@ function Article(props) {
   )
 }
 
-function Create() {
+function Create(prop) {
   return (
     <article>
       <h2>Create</h2>
-      <form>
+      <form onSubmit={event=>{
+        event.preventDefault();
+        // form 태그에서 값 가져와서 저장
+        const title = event.target.title.value;
+        const body = event.target.body.value;
+        // 저장된 값을 onCreate 함수 파라미터로 넣음
+        prop.onCreate(title, body);
+      }}>
         <p><input type="text" name="title" placeholder="title"/></p>
         <p><textarea name="body" placeholder="body"></textarea></p>
         <p><input type="submit" value="Create"/></p>
@@ -61,12 +68,13 @@ function App() {
   // [인덱스의 값을 읽기, state의 값을 변경하기]
   const [mode, setMode] = useState('WELCOME');
   const [id, setId] = useState(null);
-  // 네비게이션의 목옥을 담을 topice 배열 변수(제목, 본문, 각자의 ID 값)
-  const topics = [
+  const [nextId, setNextId] = useState(4);
+
+  const [topics, setTopics] = useState([
     {id:1, title:'html', body:'html is ...'},
     {id:2, title:'css', body:'css is ...'},
     {id:3, title:'javascript', body:'javascript is ...'}
-  ]
+  ]);
   let content = null;
   if(mode === 'WELCOME') {
     content = <Article title="Welcome" body="Hello, WEB"></Article>
@@ -81,8 +89,16 @@ function App() {
     }
     content = <Article title={title} body={body}></Article>
   } else if(mode === 'CREATE') {
-    content = <Create></Create>
+    content = <Create onCreate={(_title, _body)=> {
+      // title는 이 객체의 프로퍼티 이름, _title는 파라미터로부터 온 이름
+      const newTopic = {id:nextId, title:_title, body:_body}
+      // 기존 배열을 수정하기 위해 복제 한다.
+      const newTopics = [...topics];
+      newTopics.push(newTopic);
+      setTopics(topics);
+    }}></Create>
   }
+
   return (
     <div>
       <Header title="WEB" onChangMode={()=>{
