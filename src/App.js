@@ -43,6 +43,20 @@ function Article(props) {
     </article>
   )
 }
+
+function Create() {
+  return (
+    <article>
+      <h2>Create</h2>
+      <form>
+        <p><input type="text" name="title" placeholder="title"/></p>
+        <p><textarea name="body" placeholder="body"></textarea></p>
+        <p><input type="submit" value="Create"/></p>
+      </form>
+    </article>
+  )
+}
+
 function App() {
   // [인덱스의 값을 읽기, state의 값을 변경하기]
   const [mode, setMode] = useState('WELCOME');
@@ -66,6 +80,8 @@ function App() {
       }
     }
     content = <Article title={title} body={body}></Article>
+  } else if(mode === 'CREATE') {
+    content = <Create></Create>
   }
   return (
     <div>
@@ -77,6 +93,10 @@ function App() {
         setId(_id);
       }}></Nav>
       {content} 
+      <a href="/create" onClick={event=>{
+        event.preventDefault();
+        setMode('CREATE');
+      }}>Create</a>
     </div>
   );
 }
