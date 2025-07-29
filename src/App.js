@@ -96,6 +96,10 @@ function App() {
       const newTopics = [...topics]; // 배열복사
       newTopics.push(newTopic); // 변경
       setTopics(newTopics);
+      //글을 추가한 뒤에 추가한 글로 이동하기
+      setMode('READ');
+      setId(nextId);
+      setNextId(nextId+1);
     }}></Create>
   }
 
