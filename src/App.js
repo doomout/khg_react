@@ -65,7 +65,7 @@ function Create(prop) {
 }
 
 function App() {
-  // [인덱스의 값을 읽기, state의 값을 변경하기]
+  // mode 라는 상태값 만들고, setMode로 값을 바꿔라.
   const [mode, setMode] = useState('WELCOME');
   const [id, setId] = useState(null);
   const [nextId, setNextId] = useState(4);
@@ -92,10 +92,10 @@ function App() {
     content = <Create onCreate={(_title, _body)=> {
       // title는 이 객체의 프로퍼티 이름, _title는 파라미터로부터 온 이름
       const newTopic = {id:nextId, title:_title, body:_body}
-      // 기존 배열을 수정하기 위해 복제 한다.
-      const newTopics = [...topics];
-      newTopics.push(newTopic);
-      setTopics(topics);
+      
+      const newTopics = [...topics]; // 배열복사
+      newTopics.push(newTopic); // 변경
+      setTopics(newTopics);
     }}></Create>
   }
 
