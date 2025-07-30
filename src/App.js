@@ -113,10 +113,13 @@ function App() {
         setId(_id);
       }}></Nav>
       {content} 
-      <a href="/create" onClick={event=>{
-        event.preventDefault();
-        setMode('CREATE');
-      }}>Create</a>
+      <ul>
+        <li><a href="/create" onClick={event=>{
+          event.preventDefault();
+          setMode('CREATE');
+        }}>Create</a></li>
+        <li><a href="/update">Update</a></li>
+      </ul>
     </div>
   );
 }
