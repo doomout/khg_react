@@ -154,15 +154,28 @@ function App() {
     }
     content = <Article title={title} body={body} />
     
-    // 현재 글 보기일 때만 Update 링크 보이기
-    contextControl = (
+    // 현재 글 보기일 때만 Update 링크, 삭제 버튼 보이기
+    contextControl = <>
       <li>
         <a href={'/update/'+id} onClick={event=>{
           event.preventDefault();
           setMode('UPDATE');
         }}>Update</a>
       </li>
-    );
+      <li>
+        <input type="button" value="Delete" onClick={()=>{
+          const newTopics = []; // 빈 배열 생성
+          // 반복하면서 id가 일지하지 않는 데이터만 새로운 배열에 저장(결과적으로는 일치한 데이터를 뺀 배열이 생성)
+          for(let i=0; i<topics.length; i++) {
+            if(topics[i].id !== id) {
+              newTopics.push(topics[i]);
+            }
+          }
+          setTopics(newTopics); // 상태 업데이트
+          setMode('WELCOME'); // 삭제 후에는 첫 화면으로 이동
+        }}/>
+      </li>
+    </>
   } else if(mode === 'CREATE') {
     content = <Create onCreate={(_title, _body)=> {
       const newTopic = {id:nextId, title:_title, body:_body}
