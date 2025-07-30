@@ -64,6 +64,33 @@ function Create(prop) {
   )
 }
 
+function Update(props) {
+  const [title, setTitle] = useState(props.title);
+  const [body, setBody] = useState(props.body);
+  return (
+    <article>
+      <h2>Update</h2>
+      <form onSubmit={event=>{
+        event.preventDefault();
+        // form 태그에서 값 가져와서 저장
+        const title = event.target.title.value;
+        const body = event.target.body.value;
+        // 저장된 값을 onUpdate 함수 파라미터로 넣음
+        props.onUpdate(title, body);
+      }}>
+        <p><input type="text" name="title" placeholder="title" value={title} onChange={event=>{
+          console.log(event.target.value);
+          setTitle(event.target.value);
+        }}/></p>
+        <p><textarea name="body" placeholder="body" value={body} onChange={event=>{
+          setBody(event.target.value);
+        }}></textarea></p>
+        <p><input type="submit" value="Update"/></p>
+      </form>
+    </article>
+  )
+}
+
 function App() {
   // mode 라는 상태값 만들고, setMode로 값을 바꿔라.
   const [mode, setMode] = useState('WELCOME');
@@ -91,12 +118,14 @@ function App() {
       }
     }
     content = <Article title={title} body={body}></Article>
-    contextControl = <li><a href="/update">Update</a></li>
+    contextControl = <li><a href={'/update/'+id} onClick={event=>{
+      event.preventDefault();
+      setMode('UPDATE');
+    }}>Update</a></li>
   } else if(mode === 'CREATE') {
     content = <Create onCreate={(_title, _body)=> {
       // title는 이 객체의 프로퍼티 이름, _title는 파라미터로부터 온 이름
       const newTopic = {id:nextId, title:_title, body:_body}
-      
       const newTopics = [...topics]; // 배열복사
       newTopics.push(newTopic); // 변경
       setTopics(newTopics);
@@ -105,6 +134,28 @@ function App() {
       setId(nextId);
       setNextId(nextId+1);
     }}></Create>
+  } else if(mode === 'UPDATE') {
+    let title, body = null;
+    for(let i=0; i<topics.length; i++) {
+      if(topics[i].id === id) {
+        title = topics[i].title;
+        body = topics[i].body;
+      }
+    }
+    content = <Update title={title} body={body} onUpdate={(title, body)=>{
+      console.log(title, body);
+      const newTopics = [...topics];
+      const updatedTopic = {id:id, title:title, body:body};
+      for(let i=0; i<newTopics.length; i++) {
+        if(newTopics[i].id === id) {
+          newTopics[i] = updatedTopic;
+          break;
+        }
+      }
+      setTopics(newTopics);
+      // 글 수정 후에는 상세 보기 페이지로 이동
+      setMode('READ');
+    }}></Update>
   }
 
   return (
