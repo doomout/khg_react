@@ -75,7 +75,10 @@ function App() {
     {id:2, title:'css', body:'css is ...'},
     {id:3, title:'javascript', body:'javascript is ...'}
   ]);
+
   let content = null;
+  let contextControl = null;
+  
   if(mode === 'WELCOME') {
     content = <Article title="Welcome" body="Hello, WEB"></Article>
   } else if(mode === 'READ') {
@@ -88,6 +91,7 @@ function App() {
       }
     }
     content = <Article title={title} body={body}></Article>
+    contextControl = <li><a href="/update">Update</a></li>
   } else if(mode === 'CREATE') {
     content = <Create onCreate={(_title, _body)=> {
       // title는 이 객체의 프로퍼티 이름, _title는 파라미터로부터 온 이름
@@ -118,7 +122,7 @@ function App() {
           event.preventDefault();
           setMode('CREATE');
         }}>Create</a></li>
-        <li><a href="/update">Update</a></li>
+        {contextControl}
       </ul>
     </div>
   );
