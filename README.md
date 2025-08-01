@@ -99,7 +99,43 @@ setTopics(newTopics);
 
 ---
 
-## 5. React Router DOM
+## 5. React Router 란?
 
-* npx create-react-app 앱이름
-* npm run start 
+React Router는 React 애플리케이션에서 **클라이언트 사이드 라우팅**을 구현할 수 있도록 해주는 라이브러리 
+사용자가 페이지를 이동할 때 전체 페이지를 다시 로드하지 않고도 URL 경로에 따라 화면을 전환할 수 있게 한ㄷ.
+
+### 🛠️ 설치
+
+```bash
+npm install react-router-dom
+```
+```jsx
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Link
+} from "react-router-dom";
+
+function App() {
+  return (
+    <Router>
+      <nav>
+        <Link to="/">Home</Link>
+        <Link to="/about">About</Link>
+      </nav>
+
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+      </Routes>
+    </Router>
+  );
+}
+```
+### 주요 컴포넌트
+* BrowserRouter: 라우팅을 감싸는 최상위 컴포넌트
+* Routes: 여러 개의 Route를 감싸는 컨테이너
+* Route: 경로와 컴포넌트를 연결
+* Link: 페이지 이동을 위한 a 태그 대체 컴포넌트
+* 공식 문서: https://reactrouter.com
