@@ -138,6 +138,8 @@ function App() {
 * Routes: 여러 개의 Route를 감싸는 컨테이너
 * Route: 경로와 컴포넌트를 연결
 * Link: 페이지 이동을 위한 a 태그 대체 컴포넌트
+* HashRouter: URL에 `#` 기호를 포함시켜 클라이언트 사이드 라우팅을 구현하는 방식
+* NavLink: 내비게이션에 사용자가 위치한 곳을 표시해주는 컴포넌트
 * 공식 문서: https://reactrouter.com
 
 ### HashRouter 란?
