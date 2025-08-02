@@ -4,7 +4,7 @@ import './index.css';
 import reportWebVitals from './reportWebVitals';
 //import { BrowserRouter, Route, Routes, Link } from 'react-router-dom';
 //import { HashRouter, Route, Routes, Link } from 'react-router-dom';
-import { HashRouter, Route, Routes, NavLink } from 'react-router-dom';
+import { HashRouter, Route, Routes, NavLink, useParams } from 'react-router-dom';
 
 function Home() {
   return (
@@ -20,6 +20,28 @@ const contents = [
   { id: 2, title: 'JavaScript', description: 'JS is...' },
   { id: 3, title: 'React', description: 'React is...' }
 ];
+
+function Topic() {
+  var params = useParams();
+  var topic_id = params.topic_id;
+  var selected_topic = {
+    title: 'Sorry',
+    description: 'Not Found'
+  };
+  for (var i=0; i<contents.length; i++) {
+    if (contents[i].id === Number(topic_id)) {
+      selected_topic = contents[i];
+      break;
+    }
+  }
+  console.log(params);
+  return (
+    <div>
+      <h3>{selected_topic.title}</h3>
+      {selected_topic.description}
+    </div>
+  );
+}
 
 function Topics() {
   var lis = [];
@@ -39,9 +61,12 @@ function Topics() {
         {lis}
       </ul>
       <Routes>
-        <Route path="/1" element={'HTML is...'}/>
-        <Route path="/2" element={'JS is...'}/>
-        <Route path="/3" element={'React is...'}/>
+        {/* 기존 코드를 하나의 라우터로 path 값에 따라 주소 처리
+          <Route path="/1" element={'HTML is...'} />
+          <Route path="/2" element={'JS is...'} />
+          <Route path="/3" element={'React is...'} />
+        */}
+        <Route path="/:topic_id" element={<Topic />} />
       </Routes>
     </div>
   );
