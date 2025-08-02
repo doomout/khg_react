@@ -2,8 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import { BrowserRouter, Route, Routes, Link } from 'react-router-dom';
-
+//import { BrowserRouter, Route, Routes, Link } from 'react-router-dom';
+import { HashRouter, Route, Routes, Link } from 'react-router-dom';
 
 function Home() {
   return (
@@ -52,6 +52,6 @@ function App() {
   );
 }
 
-ReactDOM.createRoot(document.getElementById('root')).render(<BrowserRouter><App /></BrowserRouter>);
+ReactDOM.createRoot(document.getElementById('root')).render(<HashRouter><App /></HashRouter>);
 
 reportWebVitals();
