@@ -139,3 +139,20 @@ function App() {
 * Route: 경로와 컴포넌트를 연결
 * Link: 페이지 이동을 위한 a 태그 대체 컴포넌트
 * 공식 문서: https://reactrouter.com
+
+### HashRouter 란?
+
+`HashRouter`는 URL에 `#` 기호를 포함시켜 클라이언트 사이드 라우팅을 구현하는 방식입니다.   
+예를 들어, `/about` 경로는 브라우저 주소창에 `#/about`처럼 표시됩니다.  
+이 방식은 **서버 설정이 필요 없고**, 정적 파일 호스팅 환경(예: GitHub Pages, 로컬 파일 등)에서도 문제없이 동작합니다.  
+서버가 React Router의 경로를 이해하지 못하는 환경에서는 `HashRouter`를 사용하는 것이 안전합니다.  
+
+### 📌 HashRouter vs BrowserRouter
+
+| 항목 | HashRouter | BrowserRouter |
+|------|------------|----------------|
+| URL 형태 | `/#/about` | `/about` |
+| 서버 설정 필요 | ❌ (필요 없음) | ✅ (서버에서 모든 경로를 index.html로 리디렉션) |
+| SEO 친화도 | 낮음 | 높음 |
+| 사용 환경 | GitHub Pages, 정적 호스팅 등 | 자체 서버, Express, Netlify 등 |
+
