@@ -19,7 +19,16 @@ function Topics() {
   return (
     <div>
       <h2>Topics</h2>
-      Topics...
+      <ul>
+        <li><NavLink to="/topics/1">HTML</NavLink></li>
+        <li><NavLink to="/topics/2">JS</NavLink></li>
+        <li><NavLink to="/topics/3">React</NavLink></li>
+      </ul>
+      <Routes>
+        <Route path="/1" element={'HTML is...'}/>
+        <Route path="/2" element={'JS is...'}/>
+        <Route path="/3" element={'React is...'}/>
+      </Routes>
     </div>
   );
 }
@@ -45,9 +54,9 @@ function App() {
 
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/topics" element={<Topics />} />
+        <Route path="/topics/*" element={<Topics />} />
         <Route path="/contact" element={<Contact />} />
-        <Route path="*" element={<div>Not Found</div>} />
+        <Route path="/*" element={'Not Found'}/>
       </Routes>
     </div>
   );
