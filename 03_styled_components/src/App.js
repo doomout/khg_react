@@ -19,6 +19,19 @@ const ReactLargeButton = styled(ReactButton)`
   font-size: 50px;
 `;
 
+// props 값에 따라 디자인이 동적으로 변경되는 버튼
+const PrimaryButton = styled.button`
+  color: ${function(props) {
+    console.log(props);
+    if (props.primary) {
+      return 'red';
+    }
+    else {
+      return 'black';
+    }
+  }};
+`;
+
 function App() {
   return (
     <div>
@@ -26,6 +39,8 @@ function App() {
       <LargeButton>Large</LargeButton>
       <ReactButton>React</ReactButton>
       <ReactLargeButton>React Large</ReactLargeButton>
+      <PrimaryButton>Normal</PrimaryButton>
+      <PrimaryButton primary>primary</PrimaryButton>
     </div>    
   );
 }
