@@ -21,15 +21,8 @@ const ReactLargeButton = styled(ReactButton)`
 
 // props 값에 따라 디자인이 동적으로 변경되는 버튼
 const PrimaryButton = styled.button`
-  color: ${function(props) {
-    console.log(props);
-    if (props.primary) {
-      return 'red';
-    }
-    else {
-      return 'black';
-    }
-  }};
+  color: ${props => props.primary ? 'red' : 'black'};
+  background-color: ${props => props.primary ? 'blue' : 'gray'};
 `;
 
 function App() {
