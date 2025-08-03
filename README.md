@@ -4,6 +4,8 @@
  - react-dom: 19.1.0
  - node: 22.15.0
  - 개발 도구: Vite + VSCode
+ - npx create-react-app 앱이름: 리액트 템플릿 설치
+ - npm install styled-components: 스타일드 컴포넌트 설치
  - 실행: npm start
  - 빌드: npm run build
  - 정적 서버 실행: npx serve -s build
