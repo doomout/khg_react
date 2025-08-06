@@ -1,16 +1,25 @@
 import logo from './logo.svg';
-import React, {useState} from 'react';
+import React, {useReducer} from 'react';
 
 function App() {
-  const [count, setCount] = useState(0);
+  function countReducer(oldCount, action) {
+    if(action === 'UP') {
+      return oldCount + 1;
+    } else if(action === 'DOWN') {
+      return oldCount - 1;
+    } else if(action === 'RESET') {
+      return 0;
+    }
+  }
+  const [count, countDispatch] = useReducer(countReducer, 0);
   function down() {
-    setCount(count - 1);
+    countDispatch('DOWN');
   }
   function reset() {
-    setCount(0);
+    countDispatch('RESET');
   }
   function up() {
-    setCount(count + 1);
+    countDispatch('UP');
   }
   return (
     <div>
