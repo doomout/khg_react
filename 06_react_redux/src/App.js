@@ -8,7 +8,9 @@ function App() {
       <h1>Root : {number}</h1>
       <div id="grid">
         <Left1 number={number}></Left1>
-        <Right1></Right1>
+        <Right1 onIncrease={()=>{
+          setNumber(number+1);
+        }}></Right1>
       </div>
     </div>
   );
@@ -45,7 +47,9 @@ function Right1(props) {
   return (
     <div>
       <h1>Right1</h1>
-      <Right2></Right2>
+      <Right2 onIncrease={()=>{
+        props.onIncrease();
+      }}></Right2>
     </div>
   );
 }
@@ -54,7 +58,9 @@ function Right2(props) {
   return (
     <div>
       <h1>Right2</h1>
-      <Right3></Right3>
+      <Right3 onIncrease={()=>{
+        props.onIncrease();
+      }}></Right3>
     </div>
   );
 }
@@ -63,7 +69,9 @@ function Right3(props) {
   return (
     <div>
       <h1>Right3</h1>
-      <input type="button" value="+" />
+      <input type="button" value="+" onClick={()=>{
+        props.onIncrease();
+      }} />
     </div>
   );
 }
