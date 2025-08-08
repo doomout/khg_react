@@ -1,8 +1,21 @@
 import './App.css';
-import React, {useState} from 'react';
+import { createStore } from 'redux';
+
+// currentState: 현재의 상태 값, action: 현재의 값을 어떻게 바꿀 것인지 결정하는 요청
+function reducer(currentState, action) {
+  // 스테이트가 정의되지 않았으면 기본값 1을 지정
+  if(currentState === undefined) 
+  {
+    return {
+      number: 1,
+    };
+  }
+  const newState = {...currentState}; // 복사
+  return newState;
+}
+const store = createStore(reducer);
 
 function App() {
-  const [number, setNumber] = useState(1);
   return (
     <div id="container">
       <h1>Root</h1>
