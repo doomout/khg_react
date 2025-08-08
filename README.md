@@ -10,6 +10,7 @@
  - 빌드: npm run build
  - 정적 서버 실행: npx serve -s build
  - 터미널에서 리액트 실행 종료: 컨트롤 + c  
+ - npm install react-redux : Redux 설치
  # React 기초 학습 요약 (CRUD 구현)
 
 이 프로젝트는 React의 기본 개념을 학습하고, CRUD(Create, Read, Update, Delete) 기능을 구현한 코드입니다.   
@@ -160,3 +161,36 @@ function App() {
 | SEO 친화도 | 낮음 | 높음 |
 | 사용 환경 | GitHub Pages, 정적 호스팅 등 | 자체 서버, Express, Netlify 등 |
 
+## 6. Redux란?
+Redux는 전역 상태 관리 도구로, React를 포함한 다양한 UI 라이브러리에서 사용할 수 있습니다.  
+컴포넌트 간에 데이터를 공유하고, 복잡한 상태를 체계적으로 관리할 수 있게 도와줍니다.  
+
+### Redux 핵심 개념 요약
+| 개념            | 설명                                 |
+| ------------- | ---------------------------------- |
+| **Store**     | 상태(state)를 보관하는 객체 (앱의 전역 상태를 저장)  |
+| **Action**    | 상태를 변경하라는 '요청서' 역할의 객체 (`type` 필수) |
+| **Reducer**   | 액션에 따라 상태를 실제로 변경하는 순수 함수          |
+| **Dispatch**  | 액션을 스토어에 전달하여 상태를 변경하게 함           |
+| **Subscribe** | 상태가 변경될 때 특정 함수가 실행되도록 등록          |
+
+```jsx
+// Action
+const INCREMENT = 'INCREMENT';
+
+// Reducer
+function counter(state = 0, action) {
+  switch (action.type) {
+    case INCREMENT:
+      return state + 1;
+    default:
+      return state;
+  }
+}
+
+// Store 생성
+const store = createStore(counter);
+
+// Dispatch 사용
+store.dispatch({ type: INCREMENT });
+```
