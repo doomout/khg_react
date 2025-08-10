@@ -12,6 +12,9 @@ function reducer(currentState, action) {
     };
   }
   const newState = {...currentState}; // 복사
+  if(action.type === 'PLUS') {
+    newState.number++;
+  }
   return newState;
 }
 const store = createStore(reducer);
@@ -80,10 +83,13 @@ function Right2(props) {
 }
 
 function Right3(props) {
+  const dispatch = useDispatch();
   return (
     <div>
       <h1>Right3</h1>
-      <input type="button" value="+" onClick={()=>{}} />
+      <input type="button" value="+" onClick={()=>{
+        dispatch({type: 'PLUS'});
+      }} />
     </div>
   );
 }
