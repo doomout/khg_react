@@ -1,5 +1,6 @@
 import './App.css';
 import { createStore } from 'redux';
+import { Provider, useSelector, useDispatch, connect } from 'react-redux';
 
 // currentState: 현재의 상태 값, action: 현재의 값을 어떻게 바꿀 것인지 결정하는 요청
 function reducer(currentState, action) {
@@ -20,8 +21,10 @@ function App() {
     <div id="container">
       <h1>Root</h1>
       <div id="grid">
-        <Left1></Left1>
-        <Right1></Right1>
+        <Provider store={store}>
+          <Left1></Left1>
+          <Right1></Right1>
+        </Provider>
       </div>
     </div>
   );
@@ -47,9 +50,13 @@ function Left2(props) {
 
 
 function Left3(props) {
+  function f(state) {
+    return state.number;
+  }
+  const number = useSelector((state)=>state.number);
   return (
     <div>
-      <h1>Left3</h1>
+      <h1>Left3: {number}</h1>
     </div>
   );
 }
