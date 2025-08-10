@@ -10,7 +10,7 @@
  - 빌드: npm run build
  - 정적 서버 실행: npx serve -s build
  - 터미널에서 리액트 실행 종료: 컨트롤 + c  
- - npm install react-redux : Redux 설치
+ - npm install redux react-redux: redux, react-redux 설치  
  # React 기초 학습 요약 (CRUD 구현)
 
 이 프로젝트는 React의 기본 개념을 학습하고, CRUD(Create, Read, Update, Delete) 기능을 구현한 코드입니다.   
