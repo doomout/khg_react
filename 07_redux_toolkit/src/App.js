@@ -9,7 +9,7 @@ const counterSlice = createSlice({
   initialState:{value:0}, // 초기값
   reducers:{// 리듀서(복수형)
     up:(state, action)=>{
-      state.value = state.value + action.stop;
+      state.value = state.value + action.step;
     }
   } 
 });
@@ -46,7 +46,8 @@ function Counter() {
   return (
     <div>
       <button onClick={()=>{ //버튼 클릭시 숫자가 2씩 증가하도록 dispatch 설정
-        dispatch({type:'up', step:2});
+        //dispatch({type:'up', step:2});
+        dispatch({type:'counterSlice/up', step:2}); // 기존 up을 counterSlice/up 으로 교체
       }}>+</button> {count}
     </div>
   );
