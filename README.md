@@ -13,6 +13,8 @@
  - npm install redux react-redux: redux, react-redux 설치  
  - npx create-react-app 앱이름 --template redux : 처음 프로젝트 생성시 리덕스 툴킷까지 설치
  - npm install @reduxjs/toolkit: 기존 프로젝트에 리덕스 툴킷 설치
+ - npx create-next-app@latest 앱이름: NEXT.JS 설치
+ - npm run dev : NEXT.JS 실행 명령어
  
  # React 기초 학습 요약 (CRUD 구현)
 
