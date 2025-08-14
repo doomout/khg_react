@@ -23,6 +23,7 @@ export default function Home() {
         <li><Link href="/sub/about">/pages/sub/about.js</Link></li>
         <li><Link href="/sub/1">/pages/sub/[id].js</Link></li>
         <li><Link href="/sub/2">/pages/sub/[id].js</Link></li>
+        <li><Link href="/sub/fetch">/pages/sub/fetch.js</Link></li>
       </ul>
     </div>
   );
